@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<center>
+    <body>
+        <form method="post">
+
+            {%if data['qw']%}
+
+            <table>
+                <tr>
+                    <th>Company Name:</th>
+                    <td><input type="text" name="cname" value="{{data['qw'][0]['company_name']}}"></td>
+                </tr>
+                <tr>
+                    <th>Details</th>
+                    <td><input type="text" name="details" value="{{data['qw'][0]['details']}}"></td>
+                </tr>
+                <tr>
+                    <th>Establish Year</th>
+                    <td><input type="text" name="eyear" value="{{data['qw'][0]['est_year']}}"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" name="update" value="update"></td>
+                </tr>
+            </table>
+
+            {%else%}
+
+
+            <table>
+                <tr>
+                    <th>Company Name:</th>
+                    <td><input type="text" name="cname"></td>
+                </tr>
+                <tr>
+                    <th>Details</th>
+                    <td><input type="text" name="details"></td>
+                </tr>
+                <tr>
+                    <th>Establish Year</th>
+                    <td><input type="text" name="eyear"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" name="submit" value="submit"></td>
+                </tr>
+            </table>
+
+            {%endif%}
+
+            <table>
+                <tr>
+                    <th>SL No.</th>
+                    <th>Company Name</th>
+                    <th>Details</th>
+                    <th>Establish Year</th>
+                </tr>
+                {%for i in data['vview']%}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{i['company_name']}}</td>
+                    <td>{{i['details']}}</td>
+                    <td>{{i['est_year']}}</td>
+                    <td><a href="?action=update&cid={{i['vendor_id']}}">Update</a></td>
+                    <td><a href="?action=delete&cid={{i['vendor_id']}}">Delete</a></td>
+                </tr>
+                {%endfor%}
+            </table>
+        </form>
+    </body>
+</center>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post" enctype="multipart/form-data">
+        {%if data['er']%}
+
+        <table>
+            <tr>
+                <td><input type="hidden" name="category_id" value="{{data['er'][0]['category_id']}}"></td>
+            </tr>
+            <tr>
+                <th>Vendor Name:</th>
+                <td>
+                    <select name="vendor_id">
+                        <option value="{{data['er'][0]['vendor_id']}}">{{data['er'][0]['company_name']}}</option>
+                        {% for i in data['vid'] %}
+                        <option value="{{ i['vendor_id'] }}">
+                            {{ i['company_name'] }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>Shop Name:</th>
+                <td>
+                    <select name="shop_id">
+                        <option value="{{data['er'][0]['shop_id']}}">{{data['er'][0]['shop_name']}}</option>
+                        {% for i in data['sid'] %}
+                        <option value="{{ i['shop_id'] }}">
+                            {{ i['shop_name'] }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>Product Name:</th>
+                <td><input type="text" name="pname" value="{{data['er'][0]['product_name']}}"></td>
+            </tr>
+            <tr>
+                <th>Details:</th>
+                <td><input type="text" name="details" value="{{data['er'][0]['details']}}"></td>
+            </tr>
+            <tr>
+                <th>Price:</th>
+                <td><input type="text" name="price" value="{{data['er'][0]['price']}}"></td>
+            </tr>
+            <tr>
+                <th>Image:</th>
+                <td><input type="file" name="img"></td>
+            </tr>
+            <tr>
+                <td><input type="submit" name="update" value="update"></td>
+            </tr>
+        </table>
+
+        {%else%}
+        <table>
+            <tr>
+                <td><input type="hidden" name="category_id" value="{{ data['cid'][0]['category_id'] }}"></td>
+            </tr>
+            <tr>
+                <th>Vendor Name:</th>
+                <td>
+                    <select name="vendor_id">
+                        <option value="">select</option>
+                        {% for i in data['vid'] %}
+                        <option value="{{ i['vendor_id'] }}">
+                            {{ i['company_name'] }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>Shop Name:</th>
+                <td>
+                    <select name="shop_id">
+                        <option value="">select</option>
+                        {% for i in data['sid'] %}
+                        <option value="{{ i['shop_id'] }}">
+                            {{ i['shop_name'] }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>Product Name:</th>
+                <td><input type="text" name="pname"></td>
+            </tr>
+            <tr>
+                <th>Details:</th>
+                <td><input type="text" name="details"></td>
+            </tr>
+            <tr>
+                <th>Price:</th>
+                <td><input type="text" name="price"></td>
+            </tr>
+            <tr>
+                <th>Image:</th>
+                <td><input type="file" name="img"></td>
+            </tr>
+            <tr>
+                <td><input type="submit" name="submit" value="Submit"></td>
+            </tr>
+        </table>
+
+        {%endif%}
+        
+        <table>
+            <tr cellpadding="10px">
+                <th>SL No.</th>
+                <th>Category Name</th>
+                <th>Vendor Name</th>
+                <th>Shop Name</th>
+                <th>Product Name</th>
+                <th>Details</th>
+                <th>Price</th>
+                <th>Image</th>
+            </tr>
+            {%for i in data['pview']%}
+            <tr>
+                <td>{{loop.index}}</td>
+                <td>{{i['category_name']}}</td>      
+                <td>{{i['company_name']}}</td> 
+                <td>{{i['shop_name']}}</td>
+                <td>{{i['product_name']}}</td>
+                <td>{{i['details']}}</td>
+                <td>{{i['price']}}</td>
+                <td><img src="{{i['image']}}" alt="" width="200" height="200"></td>
+                <td><a href="?action=update&pid={{i['product_id']}}&catid={{i['category_id']}}">Update</a></td>
+                <td><a href="?action=delete&pid={{i['product_id']}}">Delete</a></td>
+                <td><a href="shop_stock?pid={{i['product_id']}}">Update Stock</a></td>
+                <td><a href="shop_rating?pid={{i['product_id']}}">Ratings</a></td>
+            </tr>
+            {%endfor%}
+        </table>
+
+
+    </form>
+</body>
+</html>

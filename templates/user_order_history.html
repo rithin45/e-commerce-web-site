@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .sp a {
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<center>
+    <form method="post">
+        <h4>Order History</h4>
+        <table>
+            
+            <tr>
+                <th>SL No.</th>
+                <th>Shop Name</th> 
+                <th>Date</th> 
+                <th>Total</th>
+                <th>Status</th>
+            </tr>
+            {%for i in data['dd']%}
+            <tr>
+                <td>{{loop.index}}</td>
+                <td>{{i['shop_name']}}</td>
+                <td>{{i['date_time']}}</td>
+                <td>{{i['total']}}</td>
+                <td>{{i['status_s']}}</td>
+                <td class="sp"><a href="user_order_details?oid={{i['order_master_id']}}">Details view</a></td>
+                {%if i['status_s']=='Order Confirmed'%}
+                <td class="sp">
+                <a href="user_rating?oid={{i['order_master_id']}}">Rating</a>
+                </td>
+                {%endif%}
+            </tr>
+            {%endfor%}
+        </table>
+    </form>
+</center>
+</html>

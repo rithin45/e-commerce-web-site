@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        function TextOnTextChange() {
+            
+            var enteredQty = document.getElementById("p_qnty").value;
+            var amount = document.getElementById("p_amount").value;
+
+            document.getElementById("t_amount").value = enteredQty * amount;
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('p_qnty').oninput = TextOnTextChange;
+            document.getElementById('p_amount').oninput = TextOnTextChange;
+        });
+    </script>
+</head>
+<center>
+<body>
+            <h2>Add To Cart</h2>
+            <form method="post">
+                {%if data['ww']%}
+                <table>
+                    <tr>
+                        <th>Item Name</th>
+                        <td><input type="text" value="{{data['ww'][0]['product_name']}}" name="pname"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="hidden" value="{{data['ww'][0]['product_id']}}"  name="productid"></td>
+                    </tr>
+                    <tr>
+                        <th>Quantity</th>
+                        <td><input type="text" id="p_qnty" name="quantity"></td>
+                    </tr>           
+                    <tr>
+                        <th>Amount</th>
+                        <td><input type="text" value="{{data['ww'][0]['price']}}" id="p_amount" name="amount"></td>
+                    </tr>
+                    <tr>
+                        <th>Shop Name</th>
+                        <td><input type="text" value="{{data['ww'][0]['shop_name']}}"  name="shop"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="hidden" value="{{data['ww'][0]['shop_id']}}"  name="shop_id"></td>
+                    </tr>
+                    <tr>
+                        <th>Total</th>
+                        <td><input type="text" id="t_amount" name="total"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" onclick="TextOnTextChange()" name="update" value="Update Item"></td>
+                    </tr>
+                </table>
+                {%else%}
+                <table>
+                    <tr>
+                        <th>Item Name</th>
+                        <td><input type="text" value="{{data['wr'][0]['product_name']}}" name="pname"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="hidden" value="{{data['wr'][0]['product_id']}}"  name="productid"></td>
+                    </tr>
+                    <tr>
+                        <th>Quantity</th>
+                        <td><input type="text" id="p_qnty" name="quantity"></td>
+                    </tr>           
+                    <tr>
+                        <th>Amount</th>
+                        <td><input type="text" value="{{data['wr'][0]['price']}}" id="p_amount" name="amount"></td>
+                    </tr>
+                    <tr>
+                        <th>Shop Name</th>
+                        <td><input type="text" value="{{data['wr'][0]['shop_name']}}"  name="shop"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="hidden" value="{{data['wr'][0]['shop_id']}}"  name="shop_id"></td>
+                    </tr>
+                    <tr>
+                        <th>Total</th>
+                        <td><input type="text" id="t_amount" name="total"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" onclick="TextOnTextChange()" name="submit" value="Book Item"></td>
+                    </tr>
+                </table>
+                {%endif%}
+            </form>
+        
+</body>
+</center>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

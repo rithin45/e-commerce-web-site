@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<center>
+    <body>
+        <form method="post">     
+            <table>
+                <tr>
+                    <th>SL No.</th>
+                    <th>product name</th>
+                    <th>Quantity</th>
+                    <th>Date</th>
+                </tr>
+                {%for i in data['ty']%}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{i['product_name']}}</td>
+                    <td>{{i['quantity']}}</td>
+                    <td>{{i['date_time']}}</td>
+                </tr>
+                {%endfor%}
+            </table>
+        </form>
+    </body>
+</center>
+</html>

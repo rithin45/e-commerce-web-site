@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center>
+        <form method="post">
+            
+            <table>
+                <tr cellpadding="10px">
+                    <th>SL No.</th>
+                    <th>Category Name</th>
+                    <th>Vendor Name</th>
+                    <th>Shop Name</th>
+                    <th>Product Name</th>
+                    <th>Details</th>
+                    <th>Price</th>
+                    <th>Image</th>
+                </tr>
+                {%for i in data['pview']%}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{i['category_name']}}</td>
+                    <td>{{i['company_name']}}</td>
+                    <td>{{i['shop_name']}}</td> 
+                    <td>{{i['product_name']}}</td>
+                    <td>{{i['details']}}</td>
+                    <td>{{i['price']}}</td>
+                    <!-- <td><img src="{{i['image']}}" alt="" width="200" height="200"></td>
+                    <td><a href="?action=update&pid={{i['product_id']}}">Update</a></td>
+                    <td><a href="?action=delete&pid={{i['product_id']}}">Delete</a></td>
+                    <td><a href="admin_stock?pid={{i['product_id']}}">Update Stock</a></td> -->
+                </tr>
+                {%endfor%}
+            </table>
+
+
+        </form>
+    </center>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<center>
+    <body>
+        <form method="post">
+            <table>
+                <tr>
+                    <th>SL No.</th>
+                    <th>Category Name</th>
+                </tr>
+                {%for i in data['re']%}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{i['category_name']}}</td>
+                    <td><a href="shop_products?catid={{i['category_id']}}">Manage Products</a></td> 
+                    <!-- &name={{i['category_name']}}       -->
+
+                </tr>
+                {%endfor%}
+            </table>
+        </form>
+    </body>
+</center>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<center>
+    <body>
+        <form method="post">
+            <h3>Payment</h3>
+            <table>
+                <tr>
+                    <th colspan="2">Enter Payment Details</th>
+                </tr>
+                <tr>
+                    <th>Name on Card:</th>
+                    <td><input type="text" name="cname" required></td>
+                </tr>
+                <tr>
+                    <th>Card Number:</th>
+                    <td><input type="text" name="cnumber" required></td>
+                </tr>
+                <tr>
+                    <th>Expiry Date:</th>
+                    <td><input type="text" name="edate" placeholder="mm/yy" required></td>
+                </tr>
+                <tr>
+                    <th>CVV:</th>
+                    <td><input type="text" name="cvv"required></td>
+                </tr>
+                <tr>
+                    <th>Total Amount:</th>
+                    <td><input type="text" name="amount" value="{{data['vv'][0]['total']}}" ></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" name="submit" value="Submit Payment"></td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</center>
+</html>

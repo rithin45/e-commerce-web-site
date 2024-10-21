@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<center>
+    <body>
+        <form method="post">
+            <table>
+                <tr>
+                    <th>SL No.</th>
+                    <th>Complaint</th>
+                    <th>Reply</th>
+                    <th>Date</th>
+                </tr>
+                {%for i in data['dr']%}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{i['complaint']}}</td>
+                    <td>{{i['reply']}}</td>
+                    <td>{{i['date_time']}}</td>
+                    {%if i['reply']=='pending'%}
+                    <td><a href="admin_reply?cid={{i['complaint_id']}}">Reply</a></td>
+                    {%endif%}
+                </tr>
+                {%endfor%}
+            </table>
+        </form>
+    </body>
+</center>
+</html>

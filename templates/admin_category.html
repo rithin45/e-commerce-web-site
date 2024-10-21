@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<center>
+    <body>
+        <form method="post"> 
+            {%if data['de']%}
+            <table>
+                <tr>
+                    <th>Add Categories</th>
+                    <td><input type="text" name="category" value="{{data['de'][0]['category_name']}}"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" name="update" value="update"></td>
+                </tr>
+            </table>
+
+            {%else%}
+
+
+            <table>
+                <tr>
+                    <th>Add Categories</th>
+                    <td><input type="text" name="category"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" name="insert" value="insert"></td>
+                </tr>
+            </table>
+
+                {%endif%}
+
+            
+            <table>
+                <tr>
+                    <th>SL No.</th>
+                    <th>Category</th>
+                </tr>
+                {%for i in data['view']%}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{i['category_name']}}</td>
+                    <td><a href="?action=update&catid={{i['category_id']}}">Update</a></td>
+                    <td><a href="?action=delete&catid={{i['category_id']}}">Delete</a></td>
+                </tr>
+                {%endfor%}
+            </table>
+        </form>
+    </body>
+</center>
+</html>

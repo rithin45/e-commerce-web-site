@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<center>
+    <body>
+        <form method="post">
+            <table>
+                <tr>
+                    <th>Search:</th>
+                    <td><input type="text" name="search"></td>
+                    <td><input type="submit" name="search" value="search"></td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <th>SL No.</th>
+                    <th>Category Name</th>
+                    <th>Vendor Name</th>
+                    <th>Shop Name</th>
+                    <th>Product Name</th>
+                    <th>Details</th>
+                    <th>Price</th>
+                    <th>Image</th>
+                </tr>
+                {%for i in data['qw']%}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{i['category_name']}}</td>
+                    <td>{{i['company_name']}}</td>
+                    <td>{{i['shop_name']}}</td>
+                    <td>{{i['product_name']}}</td>
+                    <td>{{i['details']}}</td>
+                    <td>{{i['price']}}</td>
+                    <td><img src="{{i['image']}}" alt="" width="50" height="50"></td>
+                    <td><a href="user_view_cart?pid={{i['product_id']}}">Add to Cart</a></td>   
+                </tr>
+                {%endfor%}
+            </table>
+        </form>
+    </body>
+</center>
+</html>

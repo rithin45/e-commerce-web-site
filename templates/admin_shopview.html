@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<center>
+    <body>
+        <form method="post">
+            <table>
+                <tr>
+                    <th>SL No.</th>
+                    <th>Shop name</th>
+                    <th>Place</th>
+                    <th>Landmark</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                </tr>
+                {%for i in data['view']%}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{i['shop_name']}}</td>
+                    <td>{{i['place']}}</td>
+                    <td>{{i['landmark']}}</td>
+                    <td>{{i['phone']}}</td>
+                    <td>{{i['email']}}</td>
+                    <td>{{i['status']}}</td>
+                    {%if i['status' or 'user_type']=='pending'%}
+                    <td><a href="?action=accept&sid={{i['shop_id']}}&lid={{i['login_id']}}">Accept</a></td>
+                    <td><a href="?action=reject&sid={{i['shop_id']}}&lid={{i['login_id']}}">Reject</a></td>
+                    {%endif%}
+                </tr>
+                {%endfor%}
+            </table>
+            
+        </form>
+    </body>
+</center>
+</html>
