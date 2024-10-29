@@ -1,43 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+{% include 'user_header.html' %}
+<br>
     <style>
         .sp a {
             margin-right: 20px;
         }
+        body {
+            background-image: url("/static/assets/img/www.jpg");
+            background-size: cover;
+            background-position: center;
+            padding: 0;
+            margin: 0;
+            height: calc(100vh - 100px);
+            color: rgb(0, 0, 0);
+        }
     </style>
-</head>
 <center>
     <form method="post">
         <h4>Order History</h4>
-        <table>
-            
-            <tr>
-                <th>SL No.</th>
-                <th>Shop Name</th> 
-                <th>Date</th> 
-                <th>Total</th>
-                <th>Status</th>
-            </tr>
-            {%for i in data['dd']%}
-            <tr>
-                <td>{{loop.index}}</td>
-                <td>{{i['shop_name']}}</td>
-                <td>{{i['date_time']}}</td>
-                <td>{{i['total']}}</td>
-                <td>{{i['status_s']}}</td>
-                <td class="sp"><a href="user_order_details?oid={{i['order_master_id']}}">Details view</a></td>
-                {%if i['status_s']=='Order Confirmed'%}
-                <td class="sp">
-                <a href="user_rating?oid={{i['order_master_id']}}">Rating</a>
-                </td>
-                {%endif%}
-            </tr>
-            {%endfor%}
-        </table>
+        <div style="margin: 20px; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px; background-color: #f9f9f9; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                <thead style="background-color: #f2f2f2;">
+                    <tr>
+                        <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">SL No.</th>
+                        <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Shop Name</th>
+                        <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Date</th>
+                        <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Total</th>
+                        <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Status</th>
+                        <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in data['dd'] %}
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">{{ loop.index }}</td>
+                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">{{ i['shop_name'] }}</td>
+                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">{{ i['date_time'] }}</td>
+                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">{{ i['total'] }}</td>
+                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">{{ i['status_s'] }}</td>
+                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center;" class="sp">
+                            <a href="user_order_details?oid={{ i['order_master_id'] }}" style="text-decoration: none; color: #007bff;">Details view</a>
+                        </td>
+                        {% if i['status_s'] == 'Delivered' %}
+                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center;" class="sp">
+                            <a href="user_rating?oid={{ i['order_master_id'] }}" style="text-decoration: none; color: #007bff;">Rating</a>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
     </form>
 </center>
-</html>
+<br><br><br><br><br><br><br><br>
+{% include 'footer.html' %}

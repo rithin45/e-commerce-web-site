@@ -1,29 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+{% include 'shop_header.html' %}
+<br>
+<style>
+    body {
+        background-image: url("/static/assets/img/dw.jpg");
+        background-size: cover;
+        background-position: center;
+        padding: 0;
+        margin: 0;
+        height: calc(100vh - 100px);
+        color: black; /* Change text color to black for better contrast */
+    }
+    .form-container {
+        background-color: rgba(255, 255, 255, 0.9); /* White background with slight transparency */
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 800px; /* Set a max width */
+        margin: auto; /* Center the container */
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+    }
+    table {
+        width: 100%; /* Make the table full width */
+        border-collapse: collapse; /* Remove space between cells */
+    }
+    th, td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.3); /* Darker border for better visibility */
+    }
+    th {
+        background-color: rgba(0, 0, 0, 0.1); /* Light background for headers */
+    }
+    .btn {
+        margin-top: 5px; /* Space between button and text */
+    }
+</style>
 <center>
     <body>
-        <form method="post">
-            <table>
-                <tr>
-                    <th>SL No.</th>
-                    <th>Category Name</th>
-                </tr>
-                {%for i in data['re']%}
-                <tr>
-                    <td>{{loop.index}}</td>
-                    <td>{{i['category_name']}}</td>
-                    <td><a href="shop_products?catid={{i['category_id']}}">Manage Products</a></td> 
-                    <!-- &name={{i['category_name']}}       -->
-
-                </tr>
-                {%endfor%}
-            </table>
-        </form>
+        <div class="form-container">
+            <h4><b>CATEGORIES</b></h4>
+            <form method="post">
+                <table cellpadding="5px" cellspacing="5px">
+                    <tr>
+                        <th>SL No.</th>
+                        <th>Category Name</th>
+                        <th>Actions</th>
+                    </tr>
+                    {% for i in data['re'] %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ i['category_name'] }}</td>
+                        <td><a href="shop_products?catid={{ i['category_id'] }}" class="btn btn-outline-dark">Manage Products</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </form>
+        </div>
     </body>
 </center>
-</html>
+<br><br><br><br><br><br><br><br>
+{% include 'footer.html' %}

@@ -1,47 +1,160 @@
+{% include 'reg_header.html' %}
+<br>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Shop Registration</title>
+    <style>
+        body {
+            background-image: url("static/assets/img/e1.jpg"); /* Update with your background image path */
+            background-size: cover;
+            background-position: center;
+            padding: 0;
+            margin: 0;
+            height: calc(100vh - 100px);
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.8); /* Slightly transparent white background */
+            padding: 20px; /* Padding around the form */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional shadow */
+            width: 400px; /* Fixed width for the form */
+            margin: auto; /* Center the form */
+            margin-top: 10px; /* Space from the top */
+        }
+        .flashes {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .flashes li {
+            margin: 10px 0;
+        }
+
+        .flashes .error {
+            color: red;
+        }
+
+        .flashes .success {
+            color: green;
+        }
+    </style>
 </head>
-<center>
-    <body>
+<body>
+
+
+
+<div class="form-container">
+    <center>
         <form method="post">
-            <table celpadding="5px" cellspacing="5px">
+            <h4><b>SHOP REGISTER!!</b></h4>
+            {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+            <table cellpadding="5px" cellspacing="5px">
                 <tr>
                     <th>Shop Name:</th>
-                    <td><input type="text" name="sname"></td>
-                </tr>
+                    <td>
+                        <input 
+                            type="text" 
+                            name="sname" 
+                            class="form-control" 
+                            pattern="[A-Za-z\s]+" 
+                            title="Shop name must contain only letters and spaces." 
+                            required  
+                            placeholder="Enter shop name"
+                        >
+                    </td>
+                </tr>   
                 <tr>
                     <th>Place:</th>
-                    <td><input type="text" name="splace"></td>
+                    <td><input type="text" name="splace" class="form-control" pattern="[A-Za-z\s]+" title="Place must contain only letters and spaces." required placeholder="Enter Place"></td>
                 </tr>
                 <tr>
                     <th>Land Mark:</th>
-                    <td><input type="text" name="slmark"></td>
+                    <td><input type="text" name="slmark" class="form-control" required placeholder="Enter Land Mark"></td>
                 </tr>
                 <tr>
                     <th>Phone:</th>
-                    <td><input type="text" name="sphone"></td>
+                    <td>
+                        <input 
+                            type="text" 
+                            name="sphone" 
+                            class="form-control" 
+                            pattern="^\d{10}$" 
+                            title="Phone number must be exactly 10 digits." 
+                            required 
+                            maxlength="10" 
+                            onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode === 0" 
+                            placeholder="Enter phone number"
+                        >
+                    </td>
                 </tr>
                 <tr>
                     <th>Email:</th>
-                    <td><input type="text" name="semail"></td>
-                </tr>
+                    <td>
+                        <input 
+                            type="email" 
+                            name="semail" 
+                            class="form-control" 
+                            title="Please enter a valid email address." 
+                            required 
+                            placeholder="example@domain.com"
+                        >
+                    </td>
+                </tr> 
                 <tr>
                     <th>Username:</th>
-                    <td><input type="text" name="susername" required></td>
-                </tr>
+                    <td>
+                        <input 
+                            type="text" 
+                            name="susername" 
+                            class="form-control" 
+                            minlength="4" 
+                            pattern="^[A-Za-z0-9._-]+$" 
+                            title="Username must be at least 4 characters long and can contain letters, numbers, dots, underscores, or hyphens." 
+                            required 
+                            placeholder="Enter username" 
+                            maxlength="20"
+                        >
+                    </td>
+                </tr>      
                 <tr>
                     <th>Password:</th>
-                    <td><input type="password" name="spassword" required></td>
+                    <td>
+                        <input 
+                            type="password" 
+                            name="spassword" 
+                            class="form-control" 
+                            minlength="6" 
+                            pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,}$" 
+                            title="Password must be at least 6 characters long and include at least one letter and one number." 
+                            required 
+                            placeholder="Enter password"
+                        >
+                    </td>
                 </tr>
+                
                 <tr>
-                    <td><input type="submit" name="register" value="register"></td>
+                    <td colspan="2" align="center"><input type="submit" name="register" value="register" class="btn btn-success"></td>
                 </tr>
             </table>
+            
         </form>
-    </body>
-</center>
+    </center>
+</div>
+
+<br><br><br>
+{% include 'footer.html' %}
+
+</body>
 </html>

@@ -1,39 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+{% include 'admin_header.html' %}
+<br>
+<style>
+    body {
+        background-image: url("/static/assets/img/qw.jpg");  /* Add your background image path here */
+        background-size: cover; /* Cover the entire body */
+        background-position: center; /* Center the image */
+        padding: 0;
+        margin: 0;
+        height: calc(100vh - 100px);
+        color: rgb(255, 255, 255);
+    }
+</style>
 <center>
-    <body><form method="post">
-        <table >
-            <tr>
-            <th>SL No.</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>House Name</th>
-            <th>Place</th>
-            <th>Landmark</th>
-            <th>Pincode</th>
-            <th>Phone</th>
-            <th>Email</th>
-        </tr>
-            {%for i in data['qw']%}
-            <tr>
-            <td>{{loop.index}}</td>
-            <td>{{i['first_name']}}</td>
-            <td>{{i['last_name']}}</td>
-            <td>{{i['house_name']}}</td>
-            <td>{{i['place']}}</td>
-            <td>{{i['landmark']}}</td>
-            <td>{{i['pincode']}}</td>
-            <td>{{i['phone']}}</td>
-            <td>{{i['email']}}</td>
-            </tr>
-            {%endfor%}
-        </table>
-    </form>
+    <body>
+        <form method="post">
+            <div style="max-width: fit-content; margin: 20px auto; padding: 20px; background-color: #ffffff; border-radius: 8px;">
+                <h4 style="color: rgb(0, 0, 0); text-align: center;"><b>USERS!!!</b></h4>
+                <table cellpadding="5" cellspacing="5" style="width: 100%; border-collapse: collapse; background-color: #ffffff; color: rgb(0, 0, 0);">
+                    <tr style="background-color: #868686;">
+                        <th style="padding: 10px; text-align: left; border: 1px solid #868686;">SL No.</th>
+                        <th style="padding: 10px; text-align: left; border: 1px solid #868686;">First Name</th>
+                        <th style="padding: 10px; text-align: left; border: 1px solid #868686;">Last Name</th>
+                        <th style="padding: 10px; text-align: left; border: 1px solid #868686;">House Name</th>
+                        <th style="padding: 10px; text-align: left; border: 1px solid #868686;">Place</th>
+                        <th style="padding: 10px; text-align: left; border: 1px solid #868686;">Landmark</th>
+                        <th style="padding: 10px; text-align: left; border: 1px solid #868686;">Pincode</th>
+                        <th style="padding: 10px; text-align: left; border: 1px solid #868686;">Phone</th>
+                        <th style="padding: 10px; text-align: left; border: 1px solid #868686;">Email</th>
+                        <th style="padding: 10px; text-align: left; border: 1px solid #868686;">Actions</th>
+                    </tr>
+                    {% for i in data['qw'] %}
+                    <tr style="background-color: #ffffff;">
+                        <td style="padding: 10px; border: 1px solid #868686;">{{ loop.index }}</td>
+                        <td style="padding: 10px; border: 1px solid #868686;">{{ i['first_name'] }}</td>
+                        <td style="padding: 10px; border: 1px solid #868686;">{{ i['last_name'] }}</td>
+                        <td style="padding: 10px; border: 1px solid #868686;">{{ i['house_name'] }}</td>
+                        <td style="padding: 10px; border: 1px solid #868686;">{{ i['place'] }}</td>
+                        <td style="padding: 10px; border: 1px solid #868686;">{{ i['landmark'] }}</td>
+                        <td style="padding: 10px; border: 1px solid #868686;">{{ i['pincode'] }}</td>
+                        <td style="padding: 10px; border: 1px solid #868686;">{{ i['phone'] }}</td>
+                        <td style="padding: 10px; border: 1px solid #868686;">{{ i['email'] }}</td>
+                        <td style="padding: 10px; border: 1px solid #868686;"><a href="admin_chat?uid={{i['login_id']}}" class="btn btn-outline-dark">Chats</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </form>
     </body>
 </center>
-</html>
+<br><br><br><br><br><br>
+{% include 'footer.html' %}

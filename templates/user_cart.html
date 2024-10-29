@@ -1,37 +1,59 @@
+{% include 'user_header.html' %}
+<br>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body {
+            background-image: url("/static/assets/img/www.jpg");
+            background-size: cover;
+            background-position: center;
+            padding: 0;
+            margin: 0;
+            height: calc(100vh - 100px);
+            color: rgb(0, 0, 0);
+        }
+    </style>
 </head>
 <center>
     <body>
         <form method="post">
-            <table>
-                <tr>
-                    <th>SL No.</th>
-                    <th>Shop_name</th>
-                    <th>Date</th>
-                    <th>Total</th>
-                    <th>Status</th>
-                </tr>
-                {%for i in data['vve']%}
-                <tr>
-                <td>{{loop.index}}</td>
-                <td>{{i['shop_name']}}</td>
-                <td>{{i['date_time']}}</td>
-                <td>{{i['total']}}</td>
-                <td>{{i['status_s']}}</td>
-                {%if i['status_s']=='pending'%}
-                <td><a href="user_payment?mid={{i['order_master_id']}}">Pay</a></td>
-                <td><a href="user_view_cart?mid={{i['order_master_id']}}">Update</a></td>
-                <td><a href="?action=remove&mid={{i['order_master_id']}}">Remove</a></td>
-                {%endif%}
-                </tr>
-                {%endfor%}
+            <table style="width: 100%; border-collapse: collapse; margin-top: 20px; background-color: white;">
+                <thead style="background-color: #f2f2f2;">
+                    <tr>
+                        <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">SL No.</th>
+                        <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Shop Name</th>
+                        <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Date</th>
+                        <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Total</th>
+                        <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Status</th>
+                        <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in data['vve'] %}
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">{{ loop.index }}</td>
+                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">{{ i['shop_name'] }}</td>
+                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">{{ i['date_time'] }}</td>
+                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">{{ i['total'] }}</td>
+                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">{{ i['status_s'] }}</td>
+                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">
+                            {% if i['status_s'] == 'pending' %}
+                                <a href="user_payment?mid={{ i['order_master_id'] }}" style="padding: 5px 10px; text-decoration: none; background-color: #28a745; color: white; border-radius: 4px;">Pay</a>
+                                <a href="user_view_cart?mid={{ i['order_master_id'] }}" style="padding: 5px 10px; text-decoration: none; background-color: #ffc107; color: black; border-radius: 4px;">Update</a>
+                                <a href="?action=remove&mid={{ i['order_master_id'] }}" style="padding: 5px 10px; text-decoration: none; background-color: #dc3545; color: white; border-radius: 4px;">Remove</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
             </table>
+            
         </form>
     </body>
 </center>
-</html>
+<br><br><br><br><br><br><br><br>
+{% include 'footer.html' %}

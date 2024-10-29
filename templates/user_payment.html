@@ -1,3 +1,15 @@
+{% include 'user_header.html' %}
+<br>
+<style>
+    body {
+    background-image: url("/static/assets/img/www.jpg");
+    background-size: cover;
+    background-position: center;
+    padding: 0;
+    margin: 0;
+    height: calc(100vh - 100px);
+    color: rgb(0, 0, 0);
+}</style>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,37 +19,82 @@
 </head>
 <center>
     <body>
-        <form method="post">
-            <h3>Payment</h3>
-            <table>
+        <form  method="post" style="margin: 20px; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px; background-color: #f9f9f9; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <table style="width: 100%; border-collapse: collapse;">
                 <tr>
-                    <th colspan="2">Enter Payment Details</th>
+                    <th colspan="2" style="padding: 10px; text-align: center; background-color: #f2f2f2;">Enter Payment Details</th>
                 </tr>
                 <tr>
-                    <th>Name on Card:</th>
-                    <td><input type="text" name="cname" required></td>
+                    <th style="padding: 10px; text-align: left;">Name on Card:</th>
+                    <td><input type="text" name="cname" class="form-control" required style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;"></td>
                 </tr>
                 <tr>
                     <th>Card Number:</th>
-                    <td><input type="text" name="cnumber" required></td>
+                    <td>
+                        <input 
+                            type="text" 
+                            name="cnumber" 
+                            class="form-control" 
+                            id="card_number" 
+                            maxlength="19" 
+                            pattern="\d{4}-\d{4}-\d{4}-\d{4}" 
+                            title="Card number must be in the format xxxx-xxxx-xxxx-xxxx." 
+                            placeholder="Enter card number xxxx-xxxx-xxxx-xxxx" 
+                            required
+                            onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode === 45" 
+                        >
+                    </td>
+                    
                 </tr>
                 <tr>
-                    <th>Expiry Date:</th>
-                    <td><input type="text" name="edate" placeholder="mm/yy" required></td>
+                    <th style="padding: 10px; text-align: left;">Expiry Date:</th>
+                    <td>
+                        <input 
+                            type="text" 
+                            name="edate" 
+                            class="form-control" 
+                            placeholder="mm/yy" 
+                            pattern="(0[1-9]|1[0-2])\/\d{2}" 
+                            title="Expiry date must be in the format mm/yy and must contain only numbers" 
+                            maxlength="5" 
+                            onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode === 47" 
+                            required 
+                            style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;"
+                        >
+                    </td>
+                </tr>
+                
+                <tr>
+                    <th style="padding: 10px; text-align: left;">CVV:</th>
+                    <td>
+                        <input 
+                            type="text" 
+                            name="cvv" 
+                            class="form-control" 
+                            maxlength="3"  
+                            pattern="\d{3}" 
+                            title="CVV must be exactly 3 digits" 
+                            onkeypress="return event.charCode >= 48 && event.charCode <= 57" 
+                            required 
+                            style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;"
+                        >
+                    </td>
+                </tr>
+                
+                <tr>
+                    <th style="padding: 10px; text-align: left;">Total Amount:</th>
+                    <td><input type="text" name="amount" value="{{data['vv'][0]['total']}}" class="form-control" readonly style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;"></td>
                 </tr>
                 <tr>
-                    <th>CVV:</th>
-                    <td><input type="text" name="cvv"required></td>
-                </tr>
-                <tr>
-                    <th>Total Amount:</th>
-                    <td><input type="text" name="amount" value="{{data['vv'][0]['total']}}" ></td>
-                </tr>
-                <tr>
-                    <td><input type="submit" name="submit" value="Submit Payment"></td>
+                    <td colspan="2" style="text-align: center;">
+                        <input type="submit" name="submit" value="Submit Payment" class="btn btn-success" style="padding: 10px 15px; border: none; border-radius: 4px; background-color: #28a745; color: white;">
+                    </td>
                 </tr>
             </table>
         </form>
+        
     </body>
 </center>
 </html>
+<br><br><br><br><br>
+{% include 'footer.html' %}

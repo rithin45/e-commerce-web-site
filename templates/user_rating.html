@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+{% include 'user_header.html' %}
+
+<br>
      <style>
         .star-rate {
             display: inline-block;
@@ -28,63 +25,89 @@
         .star-rate label:hover ~ label {
             color: gold;
         }
+        body {
+            background-image: url("/static/assets/img/www.jpg");
+            background-size: cover;
+            background-position: center;
+            padding: 0;
+            margin: 0;
+            height: calc(100vh - 100px);
+            color: rgb(0, 0, 0);
+        }
     </style>
-</head>
 <center>
     <body>
         <form method="post">
-            <h3>Rate and Review the Product</h3>
-            <table>
-                <tr>
-                    <th>Product Name:</th>
-                    <td>{{data['pi'][0]['product_name']}}</td>
-                    <td><input type="hidden" name="pname" value="{{data['pi'][0]['product_id']}}"></td>
-                </tr>
-                <tr>
-                    <div class="star-rate">  
-                        <input type="radio" id="5-stars" name="rate" value="5" required>
-                        <label for="5-stars" title="5 stars">&#9733;</label>
+            <div style="margin: 20px; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px; background-color: #f9f9f9; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                <h3 style="text-align: center;">Rate and Review the Product</h3>
+                
+                <form action="your_review_action_url" method="post" style="margin-bottom: 20px;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr>
+                            <th style="padding: 10px; text-align: left;">Product Name:</th>
+                            <td style="padding: 10px;">{{ data['pi'][0]['product_name'] }}</td>
+                            <td><input type="hidden" name="pname" value="{{ data['pi'][0]['product_id'] }}"></td>
+                        </tr>
+                        <tr>
+                            <th style="padding: 10px; text-align: left;">Rating:</th>
+                            <td colspan="2">
+                                <div class="star-rate" style="display: inline-block; padding: 10px;">
+                                    <input type="radio" id="5-stars" name="rate" value="5" required>
+                                    <label for="5-stars" title="5 stars" style="cursor: pointer;">&#9733;</label>
             
-                        <input type="radio" id="4-stars" name="rate" value="4">
-                        <label for="4-stars" title="4 stars">&#9733;</label>
+                                    <input type="radio" id="4-stars" name="rate" value="4">
+                                    <label for="4-stars" title="4 stars" style="cursor: pointer;">&#9733;</label>
             
-                        <input type="radio" id="3-stars" name="rate" value="3">
-                        <label for="3-stars" title="3 stars">&#9733;</label>
+                                    <input type="radio" id="3-stars" name="rate" value="3">
+                                    <label for="3-stars" title="3 stars" style="cursor: pointer;">&#9733;</label>
             
-                        <input type="radio" id="2-stars" name="rate" value="2">
-                        <label for="2-stars" title="2 stars">&#9733;</label>
+                                    <input type="radio" id="2-stars" name="rate" value="2">
+                                    <label for="2-stars" title="2 stars" style="cursor: pointer;">&#9733;</label>
             
-                        <input type="radio" id="1-star" name="rate" value="1">
-                        <label for="1-star" title="1 star">&#9733;</label>
-                    </div>
-                </tr>
-                <tr>
-                    <th>Review:</th>
-                    <td><input type="text" name="review"></td>
-                </tr>
-                <tr>
-                    <td><input type="submit" name="submit" value="submit"></td>
-                </tr>
-            </table>
-            <table>
-                <tr>
-                    <th>SL No.</th>
-                    <th>Product Name</th>
-                    <th>Rate</th>
-                    <th>Review</th>
-                    <th>Date</th>
-                </tr>
-                {%for i in data['dd']%}
-                <tr>
-                    <td>{{loop.index}}</td>
-                    <td>{{i['product_name']}}</td>
-                    <td>{{i['rate']}}</td>
-                    <td>{{i['review']}}</td>
-                    <td>{{i['date_time']}}</td>
-                </tr>
-                {%endfor%}
-            </table>
+                                    <input type="radio" id="1-star" name="rate" value="1">
+                                    <label for="1-star" title="1 star" style="cursor: pointer;">&#9733;</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="padding: 10px; text-align: left;">Review:</th>
+                            <td colspan="2"><input type="text" name="review" class="form-control" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="text-align: center;">
+                                <input type="submit" name="submit" value="Submit" class="btn btn-success" style="padding: 10px 15px; border: none; border-radius: 4px; background-color: #28a745; color: white;">
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            
+                <h4 style="text-align: center;"><b>Reviews</b></h4>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead style="background-color: #f2f2f2;">
+                        <tr>
+                            <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">SL No.</th>
+                            <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Product Name</th>
+                            <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Rate</th>
+                            <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Review</th>
+                            <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in data['dd'] %}
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">{{ loop.index }}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">{{ i['product_name'] }}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">{{ i['rate'] }}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">{{ i['review'] }}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">{{ i['date_time'] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
          </form>
     </body>
 </center>
-</html>
+<br><br><br><br><br><br><br><br>
+{% include 'footer.html' %}

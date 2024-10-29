@@ -1,41 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+{% include 'admin_header.html' %}
+<br>
+<style>
+    body {
+        background-image: url("/static/assets/img/qw.jpg");  /* Add your background image path here */
+        background-size: cover; /* Cover the entire body */
+        background-position: center; /* Center the image */
+        padding: 0;
+        margin: 0;
+        height: calc(100vh - 100px);
+        color: rgb(0, 0, 0);
+    }
+    
+</style>
 <center>
     <body>
-        <form method="post">
-            <table>
-                <tr>
-                    <th>SL No.</th>
-                    <th>Shop name</th>
-                    <th>Place</th>
-                    <th>Landmark</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th>Status</th>
+        <h4 style="color: white;"><b>SHOPS!!!</b></h4><br>
+        <form method="post" >
+            <table cellpadding="5" cellspacing="5" style="width: 100%; border-collapse: collapse; margin-top: 20px; background-color: #ffffff; color: rgb(0, 0, 0);">
+                <tr style="background-color: #5c5c5c;color: #ecf0f1;">
+                    <th style="padding: 10px; text-align: left;">SL No.</th>
+                    <th style="padding: 10px; text-align: left;">Shop Name</th>
+                    <th style="padding: 10px; text-align: left;">Place</th>
+                    <th style="padding: 10px; text-align: left;">Landmark</th>
+                    <th style="padding: 10px; text-align: left;">Phone</th>
+                    <th style="padding: 10px; text-align: left;">Email</th>
+                    <th style="padding: 10px; text-align: left;">Status</th>
+                    <th style="padding: 10px; text-align: left;">Actions</th>
                 </tr>
-                {%for i in data['view']%}
-                <tr>
-                    <td>{{loop.index}}</td>
-                    <td>{{i['shop_name']}}</td>
-                    <td>{{i['place']}}</td>
-                    <td>{{i['landmark']}}</td>
-                    <td>{{i['phone']}}</td>
-                    <td>{{i['email']}}</td>
-                    <td>{{i['status']}}</td>
-                    {%if i['status' or 'user_type']=='pending'%}
-                    <td><a href="?action=accept&sid={{i['shop_id']}}&lid={{i['login_id']}}">Accept</a></td>
-                    <td><a href="?action=reject&sid={{i['shop_id']}}&lid={{i['login_id']}}">Reject</a></td>
-                    {%endif%}
+                {% for i in data['view'] %}
+                <tr style="border-bottom: 1px solid #ecf0f1;">
+                    <td style="padding: 10px;">{{ loop.index }}</td>
+                    <td style="padding: 10px;">{{ i['shop_name'] }}</td>
+                    <td style="padding: 10px;">{{ i['place'] }}</td>
+                    <td style="padding: 10px;">{{ i['landmark'] }}</td>
+                    <td style="padding: 10px;">{{ i['phone'] }}</td>
+                    <td style="padding: 10px;">{{ i['email'] }}</td>
+                    <td style="padding: 10px;">{{ i['status'] }}</td>
+                    {% if i['status'] == 'pending' %}
+                    <td style="padding: 10px;">
+                        <a href="?action=accept&sid={{ i['shop_id'] }}&lid={{ i['login_id'] }}" class="btn btn-dark" style="text-decoration: none; padding: 5px; border-radius: 3px;">Accept</a>
+                        <a href="?action=reject&sid={{ i['shop_id'] }}&lid={{ i['login_id'] }}" class="btn btn-dark" style="text-decoration: none; padding: 5px; border-radius: 3px;">Reject</a>
+                    </td>
+                    {% else %}
+                    <td><a href="admin_shop_chat?aid={{i['login_id']}}" class="btn btn-outline-dark">chat</a></td>
+                    {% endif %}
                 </tr>
-                {%endfor%}
+                {% endfor %}
             </table>
+            
             
         </form>
     </body>
 </center>
-</html>
+<br><br><br><br><br>
+{%include 'footer.html'%}

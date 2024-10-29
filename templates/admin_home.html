@@ -1,19 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h3>Hey Admin!!!</h3>
-    <a href="admin_category">Add Categories</a>&nbsp;&nbsp;
-    <a href="admin_shopview">Shop view</a>&nbsp;&nbsp;
-    <a href="admin_vendors">Vendors</a>&nbsp;&nbsp;
-    <a href="admin_products">Products</a>&nbsp;&nbsp;
-    <a href="admin_userview">User View</a>&nbsp;&nbsp;
-    <a href="admin_complaintview">View Complaints</a>&nbsp;&nbsp;
-    <a href="admin_stock">Stock View</a>&nbsp;&nbsp;
-    <a href="/">Log Out</a>&nbsp;&nbsp;
-</body>
-</html>
+{% include 'admin_header.html' %}
+<br>
+<style>
+    body {
+        background-image: url("/static/assets/img/qw.jpg");
+        background-size: cover;
+        background-position: center;
+        padding: 0;
+        margin: 0;
+        height: calc(100vh - 100px);
+    }
+
+    .flash {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+        width: 80%;
+        max-width: 500px;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        animation: fadeOut 5s forwards;
+    }
+    
+    /* Base style for each flash message item */
+    .flash li {
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        text-align: center;
+        font-weight: bold;
+        color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        opacity: 0.95;
+    }
+    
+    /* Flash message colors by category */
+    .flash .success {
+        background-color: #28a745; /* Green for success */
+    }
+    
+    .flash .error {
+        background-color: #dc3545; /* Red for error */
+    }
+    
+    .flash .warning {
+        background-color: #ffc107; /* Yellow for warning */
+        color: #212529; /* Dark text for contrast */
+    }
+    
+    .flash .info {
+        background-color: #17a2b8; /* Blue for info */
+    }
+    @keyframes fadeOut {
+        0% { opacity: 1; }
+        80% { opacity: 1; } /* Keep full opacity until 80% of the animation time */
+        100% { opacity: 0; }
+    }
+</style>
+<center>
+    <body>
+        <h4>Hey Admin</h4>
+        
+        <!-- Flash message display -->
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                <ul class="flash">
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        
+    </body>
+</center>
+<br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br>
+{% include 'footer.html' %}

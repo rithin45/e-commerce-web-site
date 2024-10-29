@@ -14,7 +14,7 @@ def user_home():
 @user.route('/user_complaint',methods=['get','post'])
 def user_complaint():
     data={}
-    f="select * from complaints"
+    f="select * from complaints where user_id='%s'"%(session['uid'])
     data['dr']=select(f)
     if 'submit' in request.form:
         complaint=request.form['complaint']
@@ -24,26 +24,6 @@ def user_complaint():
         return redirect(url_for('user.user_complaint'))
     return render_template('user_complaint.html',data=data)
 
-
-@user.route('/user_rating',methods=['get','post'])
-def user_rating():
-    data={}
-    orderid=request.args['oid']
-    f="select * from order_details inner join products using (product_id) where order_details_id='%s'"%(orderid)
-    data['pi']=select(f)
-    
-    if data['pi']:
-        product_id=data['pi'][0]['product_id']
-        y="select * from ratings inner join products using (product_id) where product_id='%s'"%(product_id)
-        data['dd']=select(y)
-  
-    if 'submit' in request.form:
-        product=request.form['pname']
-        rate=request.form['rate']
-        review=request.form['review']
-        p="insert into ratings values(null,'%s','%s','%s','%s',curdate())"%(session['uid'],product,rate,review)
-        insert(p)
-    return render_template('user_rating.html',data=data)
 
 @user.route('/user_products_view',methods=['get','post'])
 def user_product_view():
@@ -96,7 +76,7 @@ def user_view_cart():
 @user.route('/user_cart',methods=['get','post'])
 def user_cart():
     data={}
-    a="select * from order_master inner join shops using(shop_id) where status_s != 'Success!!!!'"
+    a="select * from order_master inner join shops using(shop_id) where status_s != 'Order Confirmed' and status_s!='Delivered' and user_id='%s'"%(session['uid'])
     data['vve']=select(a)
     if 'action' in request.args:
         action=request.args['action']
@@ -123,16 +103,37 @@ def user_payment():
         amount=request.form['amount']
         r="insert into payment values(null,'%s','%s','%s','%s','%s','%s')"%(mids,cname,cnum,expdate,cvvv,amount)
         insert(r)
-        u="update order_master set status_s='Success!!!!' where order_master_id='%s'"%(mids)
+        u="update order_master set status_s='Order Confirmed' where order_master_id='%s'"%(mids)
         update(u)
         return redirect(url_for('user.user_cart'))
         
     return render_template('/user_payment.html',data=data)
 
+@user.route('/user_rating',methods=['get','post'])
+def user_rating():
+    data={}
+    oid=request.args['oid']
+    f="select * from order_details inner join products using (product_id) where order_details_id='%s'"%(oid)
+    data['pi']=select(f)
+    
+    if data['pi']:
+        product_id=data['pi'][0]['product_id']
+        y="select * from ratings inner join products using (product_id) where product_id='%s'"%(product_id)
+        data['dd']=select(y)
+  
+    if 'submit' in request.form:
+        product=request.form['pname']
+        rate=request.form['rate']
+        review=request.form['review']
+        p="insert into ratings values(null,'%s','%s','%s','%s',curdate())"%(session['uid'],product,rate,review)
+        insert(p)
+        return redirect(url_for('user.user_rating',oid=oid))
+    return render_template('user_rating.html',data=data)
+
 @user.route('/user_order_history',methods=['get','post'])
 def user_order_history():
     data={}
-    j="select * from order_master inner join shops using(shop_id)"
+    j="select * from order_master inner join shops using(shop_id) where user_id='%s'"%(session['uid'])
     data['dd']=select(j)
     
     return render_template('user_order_history.html',data=data)
@@ -144,3 +145,39 @@ def user_order_details():
     k="select * from order_details inner join products using(product_id)  where order_details_id='%s'"%(oids)
     data['jj']=select(k)
     return render_template('user_order_details.html',data=data)
+
+@user.route('/user_chat',methods=['get','post'])
+def user_chat():
+    data={}
+    if'submit' in request.form:
+        chat=request.form['msg']
+        i="insert into message values(null,'%s','1','user','admin','%s',curdate())"%(session['lid'],chat)
+        insert(i)
+        return redirect(url_for('user.user_chat'))
+    r="select * from message where (sender_id='1' and reciver_id='%s' or sender_id='%s' and reciver_id='1') "%(session['lid'],session['lid'])
+    data['msw']=select(r)
+    return render_template('user_chat.html',data=data)
+
+
+@user.route('/user_shop_view')
+def user_shop_view():
+    data={}
+    u="select * from shops where status!='pending'"
+    data['viewss']=select(u)
+    return render_template('user_shop_view.html',data=data)
+
+@user.route('/user_shop_chat',methods=['get','post'])
+def user_shop_chat():
+    data={}
+    sid=request.args['sid']
+    data['lid']=session['lid']
+    if'submit' in request.form:
+        chat=request.form['msg']
+        i="insert into message values(null,'%s','%s','user','shop','%s',curdate())"%(session['lid'],sid,chat)
+        insert(i)
+        return redirect(url_for('user.user_shop_chat',sid=sid))
+    r="select * from message where sender_id='%s' and reciver_id='%s' or sender_id='%s' and reciver_id='%s' "%(session['lid'],sid,sid,session['lid'])
+    data['msr']=select(r)
+    print(r)
+    
+    return render_template('user_shop_chat.html',data=data)

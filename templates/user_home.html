@@ -1,16 +1,91 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h3>Hey User!!!!!</h3> 
-    <a href="user_cart">Cart</a>&nbsp;&nbsp;
-     <a href="user_products_view">Products</a>&nbsp;&nbsp;
-     <a href="user_order_history">History</a>&nbsp;&nbsp;
-     <a href="user_complaint">Complaints</a>&nbsp;&nbsp;
-    <a href="/">Log Out</a>
-</body>
-</html>
+{% include 'user_header.html' %}
+<br>
+<style>
+    body {
+        background-image: url("/static/assets/img/www.jpg");
+        background-size: cover;
+        background-position: center;
+        padding: 0;
+        margin: 0;
+        height: calc(100vh - 100px);
+        color: white;
+    }
+    .message-container {
+        background-color: white;
+        display: inline-block;
+        padding: 10px 20px;
+        border-radius: 5px;
+        margin: 20px auto;
+        
+    }
+    .message-container h3 {
+        color: black;
+        margin: 0;
+    }
+    .flash {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+        width: 80%;
+        max-width: 500px;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        animation: fadeOut 5s forwards;
+    }
+    
+    /* Base style for each flash message item */
+    .flash li {
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        text-align: center;
+        font-weight: bold;
+        color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        opacity: 0.95;
+    }
+    
+    /* Flash message colors by category */
+    .flash .success {
+        background-color: #28a745; /* Green for success */
+    }
+    
+    .flash .error {
+        background-color: #dc3545; /* Red for error */
+    }
+    
+    .flash .warning {
+        background-color: #ffc107; /* Yellow for warning */
+        color: #212529; /* Dark text for contrast */
+    }
+    
+    .flash .info {
+        background-color: #17a2b8; /* Blue for info */
+    }
+    @keyframes fadeOut {
+        0% { opacity: 1; }
+        80% { opacity: 1; } /* Keep full opacity until 80% of the animation time */
+        100% { opacity: 0; }
+    }
+</style>
+<center>
+    <body>
+        <div class="message-container">
+            <h3><b>Hey User!!!!!</b></h3>
+        </div>
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                <ul class="flash">
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </body>
+</center>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{% include 'footer.html' %}

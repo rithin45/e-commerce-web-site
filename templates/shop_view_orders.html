@@ -1,0 +1,53 @@
+{%include 'shop_header.html'%}
+<br>
+<style>
+    body {
+        background-image: url("/static/assets/img/dw.jpg");
+        background-size: cover;
+        background-position: center;
+        padding: 0;
+        margin: 0;
+        height: calc(100vh - 100px);
+        color: rgb(0, 0, 0); /* Change text color to black for better contrast */
+    }
+</style>
+<center>
+    <body>
+        <form method="post">
+            <h4 style="text-align: center;color: white;">Order View!!</h4>
+            <div class="container" style="padding: 20px; background-color: #f8f9fa; border-radius: 8px; margin-top: 20px;">
+                <table cellpadding="5" cellspacing="5" style="width: 100%; border-collapse: collapse;">
+                    <thead style="background-color: #343a40; color: white;">
+                        <tr>
+                            <th style="padding: 10px; border: 1px solid #ddd;">SL No.</th>
+                            <th style="padding: 10px; border: 1px solid #ddd;">Shop Name</th> 
+                            <th style="padding: 10px; border: 1px solid #ddd;">Date</th> 
+                            <th style="padding: 10px; border: 1px solid #ddd;">Total</th>
+                            <th style="padding: 10px; border: 1px solid #ddd;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in data['dfd'] %}
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd;">{{ loop.index }}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">{{ i['shop_name'] }}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">{{ i['date_time'] }}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">{{ i['total'] }}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">{{ i['status_s'] }}</td>
+                            {% if i['status_s'] == 'Order Confirmed' %}
+                                <td class="sp" style="padding: 10px; border: 1px solid #ddd;">
+                                    <a href="?action=confirm&oidd={{ i['order_master_id'] }}" style="color: #007bff; text-decoration: none;">Confirm Order</a>
+                                </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </form>
+        
+        </form>
+    </body>
+</center>
+<br><br><br><br><br><br><br><br>
+{% include 'footer.html' %}

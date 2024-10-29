@@ -1,39 +1,105 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+{% include 'user_header.html' %}
+<br>
+<style>
+    .container {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+    }
+    .form-section, .categories-section {
+        width: 45%;
+    }
+    .form-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .form-inner {
+        width: 100%;
+        max-width: 400px;
+    }
+    .form-section {
+        border-right: 2px solid #000;
+        padding-right: 20px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 8px;
+        text-align: center;
+    }
+    h5 {
+        margin-top: 0;
+    }
+    
+    body {
+        background-image: url("/static/assets/img/www.jpg");
+        background-size: cover;
+        background-position: center;
+        padding: 0;
+        margin: 0;
+        height: calc(100vh - 100px);
+        color: rgb(0, 0, 0);
+    }
+</style>
 <center>
     <body>
-        <form method="post">
-            <table>
-                <tr>
-                    <th>Report Complaint</th>
-                    <td><input type="text" name="complaint"></td>
-                </tr>
-                <tr>
-                    <td><input type="submit" name="submit" value="submit"></td>
-                </tr>
-            </table>
-            <table>
-                <tr>
-                    <th>SL No.</th>
-                    <th>Complaint</th>
-                    <th>Reply</th>
-                    <th>Date</th>
-                </tr>
-                {%for i in data['dr']%}
-                <tr>
-                    <td>{{loop.index}}</td>
-                    <td>{{i['complaint']}}</td>
-                    <td>{{i['reply']}}</td>
-                    <td>{{i['date_time']}}</td>
-                </tr>
-                {%endfor%}
-            </table>
-        </form>
+        <div class="container">
+            <div class="form-section">
+                <div class="form-inner">
+                    <div style="margin: 20px; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px; background-color: #f9f9f9; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                        <h4 style="text-align: center;"><b>COMPLAINTS</b></h4>
+                        
+                        <form method="post">
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <tr>
+                                    <th style="padding: 10px; text-align: left;">Report Complaint</th>
+                                    <td style="padding: 10px;">
+                                        <input type="text" name="complaint" class="form-control" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="text-align: center;">
+                                        <input type="submit" name="submit" value="Submit" class="btn btn-dark" style="padding: 10px 15px; border: none; border-radius: 4px; color: white;">
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                    
+    </div>
+</div>
+        <div class="categories-section">
+            <div style="margin: 20px; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px; background-color: #f9f9f9; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                <h4 style="text-align: center;"><b>REQUESTED COMPLAINTS</b></h4>
+                
+                <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                    <thead style="background-color: #f2f2f2;">
+                        <tr>
+                            <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">SL No.</th>
+                            <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Complaint</th>
+                            <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Reply</th>
+                            <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in data['dr'] %}
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">{{ loop.index }}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">{{ i['complaint'] }}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">{{ i['reply'] }}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">{{ i['date_time'] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+    </div> 
     </body>
 </center>
-</html>
+<br><br><br><br><br><br><br><br>
+{% include 'footer.html' %}

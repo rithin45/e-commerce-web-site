@@ -1,3 +1,16 @@
+{% include 'user_header.html' %}
+<br>
+<style>
+    body {
+    background-image: url("/static/assets/img/www.jpg");
+    background-size: cover;
+    background-position: center;
+    padding: 0;
+    margin: 0;
+    height: calc(100vh - 100px);
+    color: rgb(0, 0, 0);
+}
+</style>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,75 +37,90 @@
             <h2>Add To Cart</h2>
             <form method="post">
                 {%if data['ww']%}
-                <table>
-                    <tr>
-                        <th>Item Name</th>
-                        <td><input type="text" value="{{data['ww'][0]['product_name']}}" name="pname"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="hidden" value="{{data['ww'][0]['product_id']}}"  name="productid"></td>
-                    </tr>
-                    <tr>
-                        <th>Quantity</th>
-                        <td><input type="text" id="p_qnty" name="quantity"></td>
-                    </tr>           
-                    <tr>
-                        <th>Amount</th>
-                        <td><input type="text" value="{{data['ww'][0]['price']}}" id="p_amount" name="amount"></td>
-                    </tr>
-                    <tr>
-                        <th>Shop Name</th>
-                        <td><input type="text" value="{{data['ww'][0]['shop_name']}}"  name="shop"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="hidden" value="{{data['ww'][0]['shop_id']}}"  name="shop_id"></td>
-                    </tr>
-                    <tr>
-                        <th>Total</th>
-                        <td><input type="text" id="t_amount" name="total"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="submit" onclick="TextOnTextChange()" name="update" value="Update Item"></td>
-                    </tr>
-                </table>
+                <form method="post">
+                    <div class="container" style="padding: 20px; background-color: #f8f9fa; border-radius: 8px; margin-top: 20px;">
+                        <h4 style="text-align: center;">Update Item</h4>
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr>
+                                <th style="padding: 10px; border: 1px solid #ddd;">Item Name</th>
+                                <td><input type="text" value="{{ data['ww'][0]['product_name'] }}" name="pname" class="form-control" readonly></td>
+                            </tr>
+                            <tr>
+                                <td><input type="hidden" value="{{ data['ww'][0]['product_id'] }}" name="productid" class="form-control"></td>
+                            </tr>
+                            <tr>
+                                <th style="padding: 10px; border: 1px solid #ddd;">Quantity</th>
+                                <td><input type="text" id="p_qnty" name="quantity" class="form-control"></td>
+                            </tr>           
+                            <tr>
+                                <th style="padding: 10px; border: 1px solid #ddd;">Amount</th>
+                                <td><input type="text" value="{{ data['ww'][0]['price'] }}" id="p_amount" name="amount" class="form-control" readonly></td>
+                            </tr>
+                            <tr>
+                                <th style="padding: 10px; border: 1px solid #ddd;">Shop Name</th>
+                                <td><input type="text" value="{{ data['ww'][0]['shop_name'] }}" name="shop" class="form-control" readonly></td>
+                            </tr>
+                            <tr>
+                                <td><input type="hidden" value="{{ data['ww'][0]['shop_id'] }}" name="shop_id" class="form-control"></td>
+                            </tr>
+                            <tr>
+                                <th style="padding: 10px; border: 1px solid #ddd;">Total</th>
+                                <td><input type="text" id="t_amount" name="total" class="form-control"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="text-align: center;">
+                                    <input type="submit" onclick="TextOnTextChange()" name="update" value="Update Item" class="btn btn-dark">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+                
                 {%else%}
-                <table>
-                    <tr>
-                        <th>Item Name</th>
-                        <td><input type="text" value="{{data['wr'][0]['product_name']}}" name="pname"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="hidden" value="{{data['wr'][0]['product_id']}}"  name="productid"></td>
-                    </tr>
-                    <tr>
-                        <th>Quantity</th>
-                        <td><input type="text" id="p_qnty" name="quantity"></td>
-                    </tr>           
-                    <tr>
-                        <th>Amount</th>
-                        <td><input type="text" value="{{data['wr'][0]['price']}}" id="p_amount" name="amount"></td>
-                    </tr>
-                    <tr>
-                        <th>Shop Name</th>
-                        <td><input type="text" value="{{data['wr'][0]['shop_name']}}"  name="shop"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="hidden" value="{{data['wr'][0]['shop_id']}}"  name="shop_id"></td>
-                    </tr>
-                    <tr>
-                        <th>Total</th>
-                        <td><input type="text" id="t_amount" name="total"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="submit" onclick="TextOnTextChange()" name="submit" value="Book Item"></td>
-                    </tr>
-                </table>
+                <div class="container" style="padding: 20px; background-color: #f8f9fa; border-radius: 8px; margin-top: 20px;">
+                    <h4 style="text-align: center;">Book Item</h4>
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr>
+                            <th style="padding: 10px; border: 1px solid #ddd;">Item Name</th>
+                            <td><input type="text" value="{{ data['wr'][0]['product_name'] }}" name="pname" class="form-control" readonly></td>
+                        </tr>
+                        <tr>
+                            <td><input type="hidden" value="{{ data['wr'][0]['product_id'] }}" name="productid" class="form-control" readonly></td>
+                        </tr>
+                        <tr>
+                            <th style="padding: 10px; border: 1px solid #ddd;">Quantity</th>
+                            <td><input type="text" id="p_qnty" name="quantity" class="form-control"></td>
+                        </tr>           
+                        <tr>
+                            <th style="padding: 10px; border: 1px solid #ddd;">Amount</th>
+                            <td><input type="text" value="{{ data['wr'][0]['price'] }}" id="p_amount" name="amount" class="form-control" readonly></td>
+                        </tr>
+                        <tr>
+                            <th style="padding: 10px; border: 1px solid #ddd;">Shop Name</th>
+                            <td><input type="text" value="{{ data['wr'][0]['shop_name'] }}" name="shop" class="form-control" readonly></td>
+                        </tr>
+                        <tr>
+                            <td><input type="hidden" value="{{ data['wr'][0]['shop_id'] }}" name="shop_id"></td>
+                        </tr>
+                        <tr>
+                            <th style="padding: 10px; border: 1px solid #ddd;">Total</th>
+                            <td><input type="text" id="t_amount" name="total" class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align: center;">
+                                <input type="submit" onclick="TextOnTextChange()" name="submit" value="Book Item" class="btn btn-success">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
                 {%endif%}
             </form>
         
 </body>
 </center>
 </html>
+<br><br><br><br><br><br><br><br><br><br>
+{% include 'footer.html' %}
 
 
 

@@ -1,149 +1,265 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+{% include 'shop_header.html' %}
+<br>
 <body>
-    <form method="post" enctype="multipart/form-data">
-        {%if data['er']%}
+    <div id="main-content">
+        <div class="container">
+            
+            <div class="form-section">
+                <div class="form-inner">
+                    <form method="post" enctype="multipart/form-data">
+                        {% if data['er'] %}
+                        <table>
+                            <tr>
+                                <td><input type="hidden" name="category_id" value="{{data['er'][0]['category_id']}}"></td>
+                            </tr>
+                            <tr>
+                                <th>Vendor Name:</th>
+                                <td>
+                                    <select name="vendor_id" class="form-control" required>
+                                        <option value="{{data['er'][0]['vendor_id']}}">{{data['er'][0]['company_name']}}</option>
+                                        {% for i in data['vid'] %}
+                                        <option value="{{ i['vendor_id'] }}">{{ i['company_name'] }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Shop Name:</th>
+                                <td>
+                                    <select name="shop_id" class="form-control" required>
+                                        <option value="{{data['er'][0]['shop_id']}}">{{data['er'][0]['shop_name']}}</option>
+                                        {% for i in data['sid'] %}
+                                        <option value="{{ i['shop_id'] }}">{{ i['shop_name'] }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Product Name:</th>
+                                <td><input type="text" name="pname" value="{{data['er'][0]['product_name']}}" class="form-control" required></td>
+                            </tr>
+                            <tr>
+                                <th>Details:</th>
+                                <td><input type="text" name="details" value="{{data['er'][0]['details']}}" class="form-control" required></td>
+                            </tr>
+                            <tr>
+                                <th>Price:</th>
+                                <td><input type="text" name="price" value="{{data['er'][0]['price']}}" class="form-control" required></td>
+                            </tr>
+                            <tr>
+                                <th>Image:</th>
+                                <td><input type="file" name="img" class="form-control" required></td>
+                            </tr>
+                            <tr>
+                                <td><input type="submit" name="update" value="Update" class="btn btn-dark" required></td>
+                            </tr>
+                        </table>
+                        {% else %}
+                        <table>
+                            <tr>
+                                <td><input type="hidden" name="category_id" value="{{ data['cid'][0]['category_id'] }}" class="form-control"></td>
+                            </tr>
+                            <tr>
+                                <th>Vendor Name:</th>
+                                <td>
+                                    <select name="vendor_id" class="form-control" required>
+                                        <option value="">select</option>
+                                        {% for i in data['vid'] %}
+                                        <option value="{{ i['vendor_id'] }}">{{ i['company_name'] }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Shop Name:</th>
+                                <td>
+                                    <select name="shop_id" class="form-control" required>
+                                        <option value="">select</option>
+                                        {% for i in data['sid'] %}
+                                        <option value="{{ i['shop_id'] }}">{{ i['shop_name'] }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Product Name:</th>
+                                <td><input type="text" name="pname" class="form-control" required></td>
+                            </tr>
+                            <tr>
+                                <th>Details:</th>
+                                <td><input type="text" name="details" class="form-control" required></td>
+                            </tr>
+                            <tr>
+                                <th>Price:</th>
+                                <td><input type="text" name="price" class="form-control" required></td>
+                            </tr>
+                            <tr>
+                                <th>Image:</th>
+                                <td><input type="file" name="img" class="form-control" required></td>
+                            </tr>
+                            <tr>
+                                <td><input type="submit" name="submit" value="Submit" class="btn btn-dark"></td>
+                            </tr>
+                        </table>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
 
-        <table>
-            <tr>
-                <td><input type="hidden" name="category_id" value="{{data['er'][0]['category_id']}}"></td>
-            </tr>
-            <tr>
-                <th>Vendor Name:</th>
-                <td>
-                    <select name="vendor_id">
-                        <option value="{{data['er'][0]['vendor_id']}}">{{data['er'][0]['company_name']}}</option>
-                        {% for i in data['vid'] %}
-                        <option value="{{ i['vendor_id'] }}">
-                            {{ i['company_name'] }}
-                        </option>
-                        {% endfor %}
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <th>Shop Name:</th>
-                <td>
-                    <select name="shop_id">
-                        <option value="{{data['er'][0]['shop_id']}}">{{data['er'][0]['shop_name']}}</option>
-                        {% for i in data['sid'] %}
-                        <option value="{{ i['shop_id'] }}">
-                            {{ i['shop_name'] }}
-                        </option>
-                        {% endfor %}
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <th>Product Name:</th>
-                <td><input type="text" name="pname" value="{{data['er'][0]['product_name']}}"></td>
-            </tr>
-            <tr>
-                <th>Details:</th>
-                <td><input type="text" name="details" value="{{data['er'][0]['details']}}"></td>
-            </tr>
-            <tr>
-                <th>Price:</th>
-                <td><input type="text" name="price" value="{{data['er'][0]['price']}}"></td>
-            </tr>
-            <tr>
-                <th>Image:</th>
-                <td><input type="file" name="img"></td>
-            </tr>
-            <tr>
-                <td><input type="submit" name="update" value="update"></td>
-            </tr>
-        </table>
-
-        {%else%}
-        <table>
-            <tr>
-                <td><input type="hidden" name="category_id" value="{{ data['cid'][0]['category_id'] }}"></td>
-            </tr>
-            <tr>
-                <th>Vendor Name:</th>
-                <td>
-                    <select name="vendor_id">
-                        <option value="">select</option>
-                        {% for i in data['vid'] %}
-                        <option value="{{ i['vendor_id'] }}">
-                            {{ i['company_name'] }}
-                        </option>
-                        {% endfor %}
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <th>Shop Name:</th>
-                <td>
-                    <select name="shop_id">
-                        <option value="">select</option>
-                        {% for i in data['sid'] %}
-                        <option value="{{ i['shop_id'] }}">
-                            {{ i['shop_name'] }}
-                        </option>
-                        {% endfor %}
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <th>Product Name:</th>
-                <td><input type="text" name="pname"></td>
-            </tr>
-            <tr>
-                <th>Details:</th>
-                <td><input type="text" name="details"></td>
-            </tr>
-            <tr>
-                <th>Price:</th>
-                <td><input type="text" name="price"></td>
-            </tr>
-            <tr>
-                <th>Image:</th>
-                <td><input type="file" name="img"></td>
-            </tr>
-            <tr>
-                <td><input type="submit" name="submit" value="Submit"></td>
-            </tr>
-        </table>
-
-        {%endif%}
-        
-        <table>
-            <tr cellpadding="10px">
-                <th>SL No.</th>
-                <th>Category Name</th>
-                <th>Vendor Name</th>
-                <th>Shop Name</th>
-                <th>Product Name</th>
-                <th>Details</th>
-                <th>Price</th>
-                <th>Image</th>
-            </tr>
-            {%for i in data['pview']%}
-            <tr>
-                <td>{{loop.index}}</td>
-                <td>{{i['category_name']}}</td>      
-                <td>{{i['company_name']}}</td> 
-                <td>{{i['shop_name']}}</td>
-                <td>{{i['product_name']}}</td>
-                <td>{{i['details']}}</td>
-                <td>{{i['price']}}</td>
-                <td><img src="{{i['image']}}" alt="" width="200" height="200"></td>
-                <td><a href="?action=update&pid={{i['product_id']}}&catid={{i['category_id']}}">Update</a></td>
-                <td><a href="?action=delete&pid={{i['product_id']}}">Delete</a></td>
-                <td><a href="shop_stock?pid={{i['product_id']}}">Update Stock</a></td>
-                <td><a href="shop_rating?pid={{i['product_id']}}">Ratings</a></td>
-            </tr>
-            {%endfor%}
-        </table>
-
-
-    </form>
+            
+            <div class="categories-section">
+                {% for i in data['pview'] %}
+                <div class="product-card">
+                    <img src="{{i['image']}}" alt="{{i['product_name']}}" height="150" width="150">
+                    <h5>{{i['product_name']}}</h5>
+                    <p>{{i['details']}}</p>
+                    <p class="price">Rs: {{i['price']}}</p>
+                    <a href="?action=update&pid={{i['product_id']}}&catid={{i['category_id']}}">Update</a>
+                    <a href="?action=delete&pid={{i['product_id']}}&catid={{i['category_id']}}">Delete</a>
+                    <a href="shop_stock?pid={{i['product_id']}}">Update Stock</a>
+                    <a href="shop_rating?pid={{i['product_id']}}">Ratings</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>  
 </body>
-</html>
+<br><br><br><br><br><br><br>
+{% include 'footer.html' %}
+
+<style>
+    body {
+        background-image: url("/static/assets/img/dw.jpg");
+        background-size: cover;
+        background-position: center;
+        padding: 0;
+        margin: 0;
+        height: calc(100vh - 100px);
+        color: black;
+    }
+
+    /* Main content specific styles */
+    #main-content .container {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 20px;
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+
+    #main-content .form-section {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 20px 10px;
+        border-right: 2px solid #000;
+        max-width: 350px;
+        background-color: white;
+        height: fit-content;
+    }
+
+    #main-content .form-inner {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    #main-content .categories-section {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        overflow-y: auto;
+        height: calc(100vh - 40px);
+        padding: 10px;
+    }
+
+    #main-content .product-card {
+        border: 1px solid #ccc;
+        padding: 16px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        transition: transform 0.2s ease-in-out;
+        background-color: white;
+        height: fit-content;
+    }
+
+    #main-content .product-card:hover {
+        transform: translateY(-5px);
+    }
+
+    #main-content .product-card img {
+        width: 100%;
+        max-width: 150px;
+        height: 150px;
+        margin-bottom: 10px;
+    }
+
+    #main-content .product-card h5 {
+        margin: 10px 0;
+        font-size: 1.1em;
+    }
+
+    #main-content .product-card .price {
+        color: #333;
+        font-weight: bold;
+    }
+
+    #main-content .product-card a {
+        display: inline-block;
+        margin-top: 8px;
+        padding: 5px 10px;
+        background-color: rgb(255, 255, 255);
+        color: #000000;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.2s ease;
+    }
+
+    #main-content .product-card a:hover {
+        background-color: #000000;
+        color: #fafafa;
+    }
+
+    @media (max-width: 768px) {
+        #main-content .container {
+            grid-template-columns: 1fr;
+        }
+
+        #main-content .form-section {
+            border-right: none;
+            padding: 20px;
+            max-width: none;
+        }
+
+        #main-content .categories-section {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 480px) {
+        #main-content .categories-section {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* Footer-specific styles */
+    #footer-content {
+        background-color: #000;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    #footer-content a {
+        color: #fafafa;
+        text-decoration: none;
+        transition: color 0.2s ease-in-out;
+    }
+
+    #footer-content a:hover {
+        color: #ddd;
+    }
+</style>

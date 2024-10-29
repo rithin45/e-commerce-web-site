@@ -1,76 +1,160 @@
-<!DOCTYPE html>
-<html lang="en">
+{% include 'admin_header.html' %}
+<br>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        .form-section, .categories-section {
+            width: 45%;
+        }
+        .form-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .form-inner {
+            width: 100%;
+            max-width: 400px;
+        }
+        .form-section {
+            border-right: 2px solid #ffffff;
+            padding-right: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+        h5 {
+            margin-top: 0;
+        }
+        body {
+            background-image: url("/static/assets/img/qw.jpg");  /* Add your background image path here */
+            background-size: cover; /* Cover the entire body */
+            background-position: center; /* Center the image */
+            padding: 0;
+            margin: 0;
+            height: calc(100vh - 100px);
+        }
+        
+    </style>
 </head>
 <center>
     <body>
-        <form method="post">
+    <div class="container">
+        <div class="form-section">
+            <div class="form-inner">
+                <form method="post">        
+                    <h4 style="color: white;"><b>ADD VENDORS!!</b></h4><br>
 
-            {%if data['qw']%}
+                        {%if data['qw']%}
 
-            <table>
-                <tr>
-                    <th>Company Name:</th>
-                    <td><input type="text" name="cname" value="{{data['qw'][0]['company_name']}}"></td>
-                </tr>
-                <tr>
-                    <th>Details</th>
-                    <td><input type="text" name="details" value="{{data['qw'][0]['details']}}"></td>
-                </tr>
-                <tr>
-                    <th>Establish Year</th>
-                    <td><input type="text" name="eyear" value="{{data['qw'][0]['est_year']}}"></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><input type="submit" name="update" value="update"></td>
-                </tr>
-            </table>
+                        <div style="max-width: 600px; margin: 20px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9;">
+                            <form>
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tr style="background-color: #ffffff; color: #000000;">
+                                        <th style="padding: 10px; text-align: left;">Company Name:</th>
+                                        <td style="padding: 10px;">
+                                            <input type="text" name="cname" value="{{data['qw'][0]['company_name']}}" class="form-control" required>
+                                        </td>
+                                    </tr>
+                                    <tr style="background-color: #ffffff; color: #000000;">
+                                        <th style="padding: 10px; text-align: left;">Details</th>
+                                        <td style="padding: 10px;">
+                                            <input type="text" name="details" value="{{data['qw'][0]['details']}}" class="form-control" required >
+                                        </td>
+                                    </tr>
+                                    <tr style="background-color: #ffffff; color: #000000;">
+                                        <th style="padding: 10px; text-align: left;">Establish Year</th>
+                                        <td style="padding: 10px;">
+                                            <input type="text" name="eyear" value="{{data['qw'][0]['est_year']}}" class="form-control" required>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" align="center" style="padding: 20px;">
+                                            <input type="submit" name="update" value="update" class="btn btn-dark" >
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                        
+                        
 
-            {%else%}
+                        {%else%}
 
 
-            <table>
-                <tr>
-                    <th>Company Name:</th>
-                    <td><input type="text" name="cname"></td>
-                </tr>
-                <tr>
-                    <th>Details</th>
-                    <td><input type="text" name="details"></td>
-                </tr>
-                <tr>
-                    <th>Establish Year</th>
-                    <td><input type="text" name="eyear"></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><input type="submit" name="submit" value="submit"></td>
-                </tr>
-            </table>
+                        <div style="max-width: 600px; margin: 20px auto; padding: 20px; border: 1px solid #000000; border-radius: 5px; background-color: #ffffff;">
+                            <form>
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <th style="text-align: left;">Company Name:</th>
+                                        <td><input type="text" name="cname" class="form-control" required></td>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align: left;">Details</th>
+                                        <td><input type="text" name="details" class="form-control" required></td>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align: left;">Establish Year</th>
+                                        <td><input type="text" name="eyear" class="form-control" required></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" align="center">
+                                            <input type="submit" name="submit" value="submit" style="padding: 5px 10px;" class="btn btn-dark">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                        
 
-            {%endif%}
-
-            <table>
-                <tr>
-                    <th>SL No.</th>
-                    <th>Company Name</th>
-                    <th>Details</th>
-                    <th>Establish Year</th>
-                </tr>
-                {%for i in data['vview']%}
-                <tr>
-                    <td>{{loop.index}}</td>
-                    <td>{{i['company_name']}}</td>
-                    <td>{{i['details']}}</td>
-                    <td>{{i['est_year']}}</td>
-                    <td><a href="?action=update&cid={{i['vendor_id']}}">Update</a></td>
-                    <td><a href="?action=delete&cid={{i['vendor_id']}}">Delete</a></td>
-                </tr>
-                {%endfor%}
-            </table>
+                        {%endif%}
         </form>
+    </div>
+</div>
+<div class="categories-section" style="margin: 20px; background-color: #ffffff; padding: 20px; border-radius: 5px;">
+    <h4 style="color: rgb(0, 0, 0); text-align: center;"><b>VENDORS!!!</b></h4>
+    <table style="width: 100%; max-width: 1200px; color: rgb(0, 0, 0); border-collapse: collapse; margin-top: 10px; margin-left: auto; margin-right: auto;"> <!-- Adjust max-width -->
+        <thead>
+            <tr style="background-color: #7a7a7a; color: #ffffff;">
+                <th style="padding: 20px; text-align: left;">SL No.</th>
+                <th style="padding: 20px; text-align: left;">Company Name</th>
+                <th style="padding: 20px; text-align: left;">Details</th>
+                <th style="padding: 20px; text-align: left;">Establish Year</th>
+                <th style="padding: 20px; text-align: left;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in data['vview'] %}
+            <tr style="background-color: #ffffff; color: #000000;">
+                <td style="padding: 10px;">{{ loop.index }}</td>
+                <td style="padding: 10px;">{{ i['company_name'] }}</td>
+                <td style="padding: 10px;">{{ i['details'] }}</td>
+                <td style="padding: 10px;">{{ i['est_year'] }}</td>
+                <td style="padding: 10px; display: flex; justify-content: space-around;">
+                    <a href="?action=update&cid={{ i['vendor_id'] }}" class="btn btn-outline-dark" style="text-decoration: none; margin-right: 5px;">Update</a>
+                    <a href="?action=delete&cid={{ i['vendor_id'] }}" class="btn btn-outline-dark" style="text-decoration: none;">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+    </div>  
     </body>
 </center>
 </html>
+<br><br>
+{% include 'footer.html' %}

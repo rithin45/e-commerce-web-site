@@ -1,32 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+{%include 'shop_header.html'%}
+<br>
+<style>
+    body {
+        background-image: url("/static/assets/img/dw.jpg");
+        background-size: cover;
+        background-position: center;
+        padding: 0;
+        margin: 0;
+        height: calc(100vh - 100px);
+        color: rgb(0, 0, 0); /* Change text color to black for better contrast */
+    }
+</style>
 <center>
     <body>
         <form method="post">
-            <table>
-                <tr>
-                    <th>SL No.</th>
-                    <th>Product Name</th>
-                    <th>Rate</th>
-                    <th>Review</th>
-                    <th>Date</th>
-                </tr>
-                {%for i in data['qe']%}
-                <tr>
-                    <td>{{loop.index}}</td>
-                    <td>{{i['product_name']}}</td>
-                    <td>{{i['rate']}}</td>
-                    <td>{{i['review']}}</td>
-                    <td>{{i['date_time']}}</td>
-                </tr>
-                {%endfor%}
-            </table>
+            <div class="container" style="padding: 20px; background-color: #f8f9fa; border-radius: 8px; margin-top: 20px;">
+                <h4 style="text-align: center;">Product Reviews</h4>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                    <thead style="background-color: #343a40; color: white;">
+                        <tr>
+                            <th style="padding: 10px; border: 1px solid #ddd;">SL No.</th>
+                            <th style="padding: 10px; border: 1px solid #ddd;">Product Name</th>
+                            <th style="padding: 10px; border: 1px solid #ddd;">Rate</th>
+                            <th style="padding: 10px; border: 1px solid #ddd;">Review</th>
+                            <th style="padding: 10px; border: 1px solid #ddd;">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in data['qe'] %}
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd;">{{ loop.index }}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">{{ i['product_name'] }}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">{{ i['rate'] }}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">{{ i['review'] }}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">{{ i['date_time'] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </form>
+        
     </body>
 </center>
-</html>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{% include 'footer.html' %}

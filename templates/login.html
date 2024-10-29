@@ -1,27 +1,111 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<center>
+{% include 'reg_header.html'%}
+<br>
+<br>
+<br>
+<style>
+    body {
+        background-image: url('/static/assets/img/tt.jpg'); /* Add your background image path here */
+        background-size: cover; /* Cover the entire body */
+        background-position: center; /* Center the image */
+        padding: 0;
+        margin: 0;
+        height: calc(100vh - 100px);
+    }
+    .form-container {
+        background: rgba(255, 255, 255, 0.8); /* Slightly transparent white background */
+        padding: 20px; /* Padding around the form */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional shadow */
+        width: 400px; /* Fixed width for the form */
+        margin: auto; /* Center the form */
+        margin-top: 0px; /* Space from the top */
+        margin-bottom: 10px;
+        margin-bottom: 50px;
+    }
+    /* Flash message list styling */
+    .flash {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+        width: 80%;
+        max-width: 500px;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        animation: fadeOut 5s forwards;
+    }
+    
+    /* Base style for each flash message item */
+    .flash li {
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        text-align: center;
+        font-weight: bold;
+        color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        opacity: 0.95;
+    }
+    
+    /* Flash message colors by category */
+    .flash .success {
+        background-color: #28a745; /* Green for success */
+    }
+    
+    .flash .error {
+        background-color: #dc3545; /* Red for error */
+    }
+    
+    .flash .warning {
+        background-color: #ffc107; /* Yellow for warning */
+        color: #212529; /* Dark text for contrast */
+    }
+    
+    .flash .info {
+        background-color: #17a2b8; /* Blue for info */
+    }
+    @keyframes fadeOut {
+        0% { opacity: 1; }
+        80% { opacity: 1; } /* Keep full opacity until 80% of the animation time */
+        100% { opacity: 0; }
+    }
+
+</style>
+
 <body>
+    <div class="form-container">
+<center>
+    <h4 style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">LOGIN!</h4>
+    
+    {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                    <ul class="flash">
+                        {% for category, message in messages %}
+                            <li class="{{ category }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+    
     <form method="post">
-        <table cellpadding="5px" cellspacing="5px">
+        <table>
             <tr>
                 <th>Username:</th>
-                <td><input type="text" name="username" required></td>
+                <td><input type="text" name="username" required class="form-control" id="autoSizingInputGroup"></td>
             </tr>
             <tr>
                 <th>Password:</th>
-                <td><input type="password" name="password" required></td>
+                <td><input type="password" name="password" required class="form-control"></td>
             </tr>
             <tr>
-                <td colspan="2"><input type="submit" name="submit" value="submit"></td>
+                <td colspan="2" align="center" ><input type="submit" class="btn btn-success" name="submit" value="submit"></td>
             </tr>
         </table>
     </form>
+</div>
 </body>
 </center>
-</html>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+{% include 'footer.html' %}

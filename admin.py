@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint,render_template,request,redirect,url_for
+from flask import Flask, Blueprint,render_template,request,redirect,url_for,session
 
 import uuid
 from database import *
@@ -157,3 +157,37 @@ def admin_reply():
         return redirect(url_for('admin.admin_complaintview'))
         
     return render_template('admin_reply.html')
+
+
+@admin.route('/admin_chat',methods=['get','post'])
+def admin_chat():
+    data={}
+    data['lid']=session['lid']
+    uid=request.args['uid']
+    if'submit' in request.form:
+        chat=request.form['msg']
+        i="insert into message values (null,'%s','%s','admin','user','%s',curdate())"%(session['lid'],uid,chat)
+        insert(i)
+        return redirect(url_for('admin.admin_chat',uid=uid))
+        
+    r="select * from message where sender_id='%s' and reciver_id='%s' or sender_id='%s' and reciver_id='%s'"%(session['lid'],uid,uid,session['lid'])
+    data['msg']=select(r)
+    print(r)
+    
+    return render_template('chat_s.html',data=data)
+
+@admin.route('/admin_shop_chat',methods=['get','post'])
+def admin_shop_chat():
+    data={}
+    data['lid']=session['lid']
+    aid = request.args['aid']
+    if'submit' in request.form:
+        chat=request.form['msg']
+        i="insert into message values (null,'%s','%s','admin','shop','%s',curdate())"%(session['lid'],aid,chat)
+        insert(i)
+        return redirect(url_for('admin.admin_shop_chat',aid=aid))
+    
+    r="select * from message where sender_id='%s' and reciver_id='%s' or sender_id='%s' and reciver_id='%s'"%(session['lid'],aid,aid,session['lid'])
+    data['msww']=select(r)
+    print(r)
+    return render_template('admin_shop_chat.html',data=data)

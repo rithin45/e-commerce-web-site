@@ -1,33 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+{% include 'admin_header.html' %}
+<br>
+<style>
+    body {
+        background-image: url("/static/assets/img/qw.jpg");
+        background-size: cover;
+        background-position: center;
+        padding: 0;
+        margin: 0;
+        height: calc(100vh - 100px);
+        color: white;
+    }
+</style>
 <center>
     <body>
-        <form method="post">
-            <table>
-                <tr>
-                    <th>SL No.</th>
-                    <th>Complaint</th>
-                    <th>Reply</th>
-                    <th>Date</th>
+        <div style="max-width: 1000px; margin: 20px auto; padding: 20px; background-color: #ffffff; border-radius: 8px;">
+            <h4 style="color: rgb(0, 0, 0); text-align: center;"><b>COMPLAINTS</b></h4>
+            <table cellpadding="5" cellspacing="5" style="width: 100%; border-collapse: collapse; background-color: #ffffff; color: rgb(0, 0, 0);">
+                <tr style="background-color: #444;color: #ffffff;">
+                    <th style="padding: 10px; text-align: left;">SL No.</th>
+                    <th style="padding: 10px; text-align: left;">Complaint</th>
+                    <th style="padding: 10px; text-align: left;">Reply</th>
+                    <th style="padding: 10px; text-align: left;">Date</th>
+                    <th style="padding: 10px; text-align: left;">Action</th>
                 </tr>
-                {%for i in data['dr']%}
-                <tr>
-                    <td>{{loop.index}}</td>
-                    <td>{{i['complaint']}}</td>
-                    <td>{{i['reply']}}</td>
-                    <td>{{i['date_time']}}</td>
-                    {%if i['reply']=='pending'%}
-                    <td><a href="admin_reply?cid={{i['complaint_id']}}">Reply</a></td>
-                    {%endif%}
+                {% for i in data['dr'] %}
+                <tr style="background-color: #fefefe;">
+                    <td style="padding: 10px;">{{ loop.index }}</td>
+                    <td style="padding: 10px;">{{ i['complaint'] }}</td>
+                    <td style="padding: 10px;">{{ i['reply'] }}</td>
+                    <td style="padding: 10px;">{{ i['date_time'] }}</td>
+                    {% if i['reply'] == 'pending' %}
+                    <td style="padding: 10px;">
+                        <a href="admin_reply?cid={{ i['complaint_id'] }}" class="btn btn-outline-dark" style="text-decoration: none;">Reply</a>
+                    </td>
+                    {% else %}
+                    <td style="padding: 10px;">Replied</td>
+                    {% endif %}
                 </tr>
-                {%endfor%}
+                {% endfor %}
             </table>
+        </div>
+        
         </form>
     </body>
 </center>
-</html>
+<br><br><br><br><br><br><br><br><br>
+{% include 'footer.html' %}
